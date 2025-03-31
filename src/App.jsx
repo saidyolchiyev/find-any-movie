@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Main } from "./pages/Main";
 import { WatchList } from "./pages/WatchList";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { MovieDetails } from "./pages/MovieDetails";
 
 export const API = "https://www.omdbapi.com/?apikey=d47c1c7c&";
