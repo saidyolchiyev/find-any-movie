@@ -10,14 +10,16 @@ const watchlistReducer = createSlice({
   initialState: { movies: getInitialState() },
   reducers: {
     addMovie: (state, action) => {
-      const m = state.movies.find((i) => i.imdbID == action.payload.imdbID);
+      console.log("here");
+
+      const m = state.movies.find((i) => i.id == action.payload.id);
       if (m) return;
       const newState = [...state.movies, action.payload];
       localStorage.setItem("watchlist", JSON.stringify(newState));
       state.movies = newState;
     },
     removeMovie: (state, action) => {
-      const newState = state.movies.filter((m) => m.imdbID != action.payload);
+      const newState = state.movies.filter((m) => m.id != action.payload);
       localStorage.setItem("watchlist", JSON.stringify(newState));
       state.movies = newState;
     },

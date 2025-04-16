@@ -4,18 +4,17 @@ import { WatchList } from "./pages/WatchList";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { MovieDetails } from "./pages/MovieDetails";
 
-export const API = "https://www.omdbapi.com/?apikey=d47c1c7c&";
-
 const App = () => {
-  const [search, setSearch] = useState("interstellar");
+  const [form, setForm] = useState({
+    search: "",
+    genre: "",
+    sort: "",
+  });
 
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={<Main search={search} setSearch={setSearch} />}
-        />
+        <Route path="/" element={<Main form={form} setForm={setForm} />} />
         <Route path="/:id" index element={<MovieDetails />} />
         <Route path="/watchlist" element={<WatchList />} />
       </Routes>

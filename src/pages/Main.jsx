@@ -1,29 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { MovieList } from "../components/MovieList";
-import { API } from "../App";
+// import { API } from "../App";
 import { Link } from "react-router-dom";
+import { sendRequest } from "../utils/send-request";
+import { SortingForm } from "../components/SortingForm";
 
-export const Main = ({ search, setSearch }) => {
+export const Main = ({ form, setForm }) => {
   const [movies, setMovies] = useState([]);
 
   const watchlist = useSelector((state) => state.watchlist);
-  console.log(watchlist);
+  // console.log(watchlist);
+
+  const sortResults = (movies, sortBy) => {
+    switch (sortBy) {
+      case "popularity":
+        return [...movies].sort((a, b) => b.popularity - a.popularity);
+      case "release_date":
+        return [...movies].sort(
+          (a, b) => new Date(b.release_date) - new Date(a.release_date)
+        );
+      case "vote_average":
+        return [...movies].sort((a, b) => b.vote_average - a.vote_average);
+      case "title":
+        return [...movies].sort((a, b) => a.title.localeCompare(b.title));
+      default:
+        return movies;
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(API + `s=${search}`);
-        const data = await res.json();
+        const data = await sendRequest(
+          `https://api.themoviedb.org/3/search/movie?query=${form.search}&include_adult=false&language=en-US&page=1`
+        );
 
-        setMovies(() => data.Search);
+        setMovies(() => sortResults(data.results, form.sort));
       } catch (e) {
         console.error(e);
       }
     };
 
+    if (!form.search.length) {
+      setMovies(null);
+      return;
+    }
+
     fetchData();
-  }, [setMovies, search]);
+  }, [setMovies, form]);
 
   return (
     <div className="container">
@@ -41,20 +66,14 @@ export const Main = ({ search, setSearch }) => {
           }}
         ></div>
       </div>
-      <div className="flex py-5 flex md:flex-row flex-col">
+      <div className="flex py-5 md:flex-row flex-col">
         <div className="flex items-end md:mb-0 mb-4">
           <div className="text-3xl mr-6">FindAnyMovie</div>
           <Link to={"/watchlist"} className="hover:underline">
             Watchlist
           </Link>
         </div>
-        <input
-          type="text"
-          className="border-2 border-neutral-300 rounded text-white md:ml-auto px-5 py-2 outline-none md:max-w-[300px] w-full"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <SortingForm form={form} setForm={setForm} />
       </div>
       <hr />
       <div className="py-5">
