@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { sendRequest } from "../utils/send-request";
+import { div } from "framer-motion/client";
 
 const TrailerPopup = ({ movieId, onClose }) => {
   const [trailerKey, setTrailerKey] = useState(null);
@@ -30,17 +31,18 @@ const TrailerPopup = ({ movieId, onClose }) => {
       >
         &times;
       </button>
-      <div className="rounded-md shadow-lg w-full max-w-4xl relative overflow-hidden h-[60%]">
+      <div className="rounded-md shadow-lg w-full max-w-4xl relative overflow-hidden md:h-[60%] h-[40%]">
         {trailerKey ? (
-          <div className="h-full w-full">
-            <iframe
-              className="w-full h-full rounded-md"
-              src={`https://www.youtube.com/embed/${trailerKey}`}
-              title="Movie Trailer"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            ></iframe>
+          <div className="px-4 h-full">
+            <div className="h-full w-full">
+              <iframe
+                className="w-full h-full rounded-md"
+                src={`https://www.youtube.com/embed/${trailerKey}`}
+                title="Movie Trailer"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         ) : (
           <p className="text-center text-gray-700 py-10">

@@ -8,13 +8,21 @@ export const SortingForm = ({ form, setForm }) => {
       onChange={(e) => setForm((prev) => ({ ...prev, sort: e.target.value }))}
     >
       <select className="border-2 border-neutral-300 rounded text-white pl-2 py-2 outline-none md:mx-2 mb-2 md:mb-0 md:max-w-[200px] w-full">
-        <div className="text-black">
-          <option value="">Sort by ..</option>
-          <option value="popularity">Popularity (high to low)</option>
-          <option value="release_date">Release Date (newest)</option>
-          <option value="vote_average">Rating (high to low)</option>
-          <option value="title">Title (A-Z)</option>
-        </div>
+        <option value="" className="text-black">
+          Sort by ..
+        </option>
+        <option value="popularity" className="text-black">
+          Popularity (high to low)
+        </option>
+        <option value="release_date" className="text-black">
+          Release Date (newest)
+        </option>
+        <option value="vote_average" className="text-black">
+          Rating (high to low)
+        </option>
+        <option value="title" className="text-black">
+          Title (A-Z)
+        </option>
       </select>
       <input
         type="text"

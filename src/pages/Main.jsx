@@ -67,11 +67,19 @@ export const Main = ({ form, setForm }) => {
         ></div>
       </div>
       <div className="flex py-5 md:flex-row flex-col">
-        <div className="flex items-end md:mb-0 mb-4">
-          <div className="text-3xl mr-6">FindAnyMovie</div>
-          <Link to={"/watchlist"} className="hover:underline">
-            Watchlist
-          </Link>
+        <div className="flex md:items-end md:mb-0 mb-4 md:flex-row flex-col">
+          <div className="text-3xl mr-6 md:mb-0 mb-2">FindAnyMovie</div>
+          <div>
+            <Link to={"/upcomming"} className="hover:underline mx-2">
+              Upcomming
+            </Link>
+            <Link to={"/top"} className="hover:underline mx-2">
+              Top Movies
+            </Link>
+            <Link to={"/watchlist"} className="hover:underline mx-2">
+              Watchlist
+            </Link>
+          </div>
         </div>
         <SortingForm form={form} setForm={setForm} />
       </div>
