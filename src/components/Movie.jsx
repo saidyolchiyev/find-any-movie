@@ -9,16 +9,21 @@ export const Movie = ({ movie, toggle }) => {
   const dispatch = useDispatch();
 
   return (
-    <Link to={`/${movie.imdbID}`}>
+    <Link to={`/${movie.id}`}>
       <div className="bg-white text-[#141414] p-3 rounded-sm cursor-pointer transform hover:scale-[102%] transition-all relative h-full">
         <img
-          src={movie.Poster}
+          src={
+            "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" +
+            movie.poster_path
+          }
           alt=""
           className="w-full h-[350px] object-cover"
         />
         <div className="py-2">
-          <div className="pt-2 font-semibold text-xl mb-1">{movie.Title}</div>
-          <div className="text-sm text-neutral-500 font-bold">{movie.Year}</div>
+          <div className="pt-2 font-semibold text-xl mb-1">{movie.title}</div>
+          <div className="text-sm text-neutral-500 font-bold">
+            {movie.release_date}
+          </div>
         </div>
         <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] flex items-end p-5 opacity-0 hover:opacity-100 transition-all">
           {toggle ? (
@@ -41,7 +46,7 @@ export const Movie = ({ movie, toggle }) => {
               className="flex justify-center text-white w-full bg-[#141414] p-2 rounded-md cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
-                dispatch(removeMovie(movie.imdbID));
+                dispatch(removeMovie(movie.id));
               }}
             >
               <span>Remove from watchlist</span>&nbsp;
